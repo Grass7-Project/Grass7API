@@ -2,7 +2,9 @@
 #include "Gr7Api.h"
 #include <io.h>
 #include <string.h>
-
+#include <Shobjidl.h>
+#include <shellapi.h>
+#include <strsafe.h>
 
 struct stat info;
 
@@ -10,11 +12,14 @@ const char * gr7::GetSystemDriveLetter()
 {
 	// Better implementation for global use, since this is in the OS and not winRE as before.
 	const char *driveletter = "";
-	char bg1[256];
-	char bg2[256];
+	char bg1[256] = { 0 };
+	char bg2[256] = { 0 };
 	TCHAR windir[MAX_PATH];
 	CHAR path[MAX_PATH];
-	GetWindowsDirectory(windir, MAX_PATH);
+	UINT errWinDir = GetWindowsDirectory(windir, MAX_PATH);
+	if (errWinDir == 0) {
+		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
+	}
 	wcstombs_s(NULL, path, windir, wcslen(windir) + 1);
 	std::string path1 = path;
 	std::string letter1 = path1.substr(0, path1.find(":"));
@@ -45,63 +50,70 @@ int gr7::dirExists(const char *pathname)
 		return 0;
 }
 
-BOOL IsDots(const TCHAR* str) {
-	if (wcscmp(str, _T(".")) && wcscmp(str, _T(".."))) return FALSE;
-	return TRUE;
+LONG gr7::DeleteDirectory(const TCHAR* sPath)
+{
+	WCHAR szDir[MAX_PATH + 1];  // +1 for the double null terminate
+	SHFILEOPSTRUCTW fos = { 0 };
+
+	StringCchCopy(szDir, MAX_PATH, sPath);
+	int len = lstrlenW(szDir);
+	szDir[len + 1] = 0; // double null terminate for SHFileOperation
+
+						// delete the folder and everything inside
+	fos.wFunc = FO_DELETE;
+	fos.pFrom = szDir;
+	fos.fFlags = FOF_NO_UI;
+	return SHFileOperation(&fos);
 }
 
-BOOL gr7::DeleteDirectory(const TCHAR* sPath) {
-	// Better implementation of MS's own function to delete directories
-	// This one is recursive
-	HANDLE hFind;
-	WIN32_FIND_DATA FindFileData;
-
-	TCHAR DirPath[MAX_PATH];
-	TCHAR FileName[MAX_PATH];
-
-	wcscpy_s(DirPath, MAX_PATH, sPath);
-	wcscat_s(DirPath, MAX_PATH, _T("\\*"));
-	wcscpy_s(FileName, MAX_PATH, sPath);
-	wcscat_s(FileName, MAX_PATH, _T("\\"));
-
-	hFind = FindFirstFile(DirPath, &FindFileData);
-	if (hFind == INVALID_HANDLE_VALUE) return FALSE;
-	wcscpy_s(DirPath, MAX_PATH, FileName);
-
-	bool bSearch = true;
-	while (bSearch) {
-		if (FindNextFile(hFind, &FindFileData)) {
-			if (IsDots(FindFileData.cFileName)) continue;
-			wcscat_s(FileName, MAX_PATH, FindFileData.cFileName);
-			if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-				if (!DeleteDirectory(FileName)) {
-					FindClose(hFind);
-					return FALSE;
-				}
-				RemoveDirectory(FileName);
-				wcscpy_s(FileName, MAX_PATH, DirPath);
-			}
-			else {
-				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_READONLY)
-					_chmod((const char*)FileName, _S_IWRITE);
-				if (!DeleteFile(FileName)) {
-					FindClose(hFind);
-					return FALSE;
-				}
-				wcscpy_s(FileName, MAX_PATH, DirPath);
-			}
-		}
-		else {
-			if (GetLastError() == ERROR_NO_MORE_FILES)
-				bSearch = false;
-			else {
-				FindClose(hFind);
-				return FALSE;
-			}
-
-		}
-
+// Backup Implementation incase gr7::DeleteDirectory does not work.
+// Note: Appears to not work with large directories with alot of files.
+BOOL gr7::DeleteDirectory2(const TCHAR* sPath)
+{
+	HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	if (FAILED(hr)) {
+		//Couldn't initialize COM library - clean up and return
+		CoUninitialize();
+		return FALSE;
 	}
-	FindClose(hFind);
-	return RemoveDirectory(sPath);
+	//Initialize the file operation
+	IFileOperation* fileOperation;
+	hr = CoCreateInstance(CLSID_FileOperation, NULL, CLSCTX_ALL, IID_PPV_ARGS(&fileOperation));
+	if (FAILED(hr)) {
+		//Couldn't CoCreateInstance - clean up and return
+		CoUninitialize();
+		return FALSE;
+	}
+	hr = fileOperation->SetOperationFlags(FOF_NOCONFIRMATION | FOF_SILENT | FOF_NOERRORUI);
+	if (FAILED(hr)) {
+		//Couldn't add flags - clean up and return
+		fileOperation->Release();
+		CoUninitialize();
+		return FALSE;
+	}
+	IShellItem* fileOrFolderItem = NULL;
+	hr = SHCreateItemFromParsingName(sPath, NULL, IID_PPV_ARGS(&fileOrFolderItem));
+	if (FAILED(hr)) {
+		//Couldn't get file into an item - clean up and return (maybe the file doesn't exist?)
+		fileOrFolderItem->Release();
+		fileOperation->Release();
+		CoUninitialize();
+		return FALSE;
+	}
+	hr = fileOperation->DeleteItem(fileOrFolderItem, NULL);
+	fileOrFolderItem->Release();
+	if (FAILED(hr)) {
+		//Failed to mark file/folder item for deletion - clean up and return
+		fileOperation->Release();
+		CoUninitialize();
+		return FALSE;
+	}
+	hr = fileOperation->PerformOperations();
+	fileOperation->Release();
+	CoUninitialize();
+	if (FAILED(hr)) {
+		//failed to carry out delete - return
+		return FALSE;
+	}
+	return TRUE;
 }
