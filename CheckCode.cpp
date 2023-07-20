@@ -8,7 +8,11 @@ BOOL gr7::isGrass7()
 	CHAR identfilepath[MAX_PATH];
 	std::string myText;
 
-	GetWindowsDirectory(windir, MAX_PATH);
+	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
+	if (errWinDir == 0) {
+		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
+		return 1;
+	}
 	const char *identfile = ("\\system32\\identifier");
 	wcstombs_s(NULL, identfilepath, windir, wcslen(windir) + 1);
 	strcat_s(identfilepath, identfile);
