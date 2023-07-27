@@ -6,7 +6,8 @@ namespace gr7 {
 	__declspec(dllexport) std::string WStringToString(const std::wstring& wstr);
 	extern "C" __declspec(dllexport) const char *GetSystemDriveLetter();
 	extern "C" __declspec(dllexport) int dirExists(const char *pathname);
-	extern "C" __declspec(dllexport) BOOL DeleteDirectory(const TCHAR* sPath);
+	extern "C" __declspec(dllexport) LONG DeleteDirectory(const TCHAR* sPath);
+	extern "C" __declspec(dllexport) BOOL DeleteDirectory2(const TCHAR* sPath);
 	extern "C" __declspec(dllexport) HRESULT ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fEnable, HANDLE process);
 	extern "C" __declspec(dllexport) wchar_t *LoadStringToW(HINSTANCE hInstance, UINT uID);
 	extern "C" __declspec(dllexport) wchar_t *LoadOSBrandingString();

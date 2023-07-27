@@ -16,7 +16,7 @@ const char * gr7::GetSystemDriveLetter()
 	char bg2[256] = { 0 };
 	TCHAR windir[MAX_PATH];
 	CHAR path[MAX_PATH];
-	UINT errWinDir = GetWindowsDirectory(windir, MAX_PATH);
+	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 	}
@@ -55,7 +55,7 @@ LONG gr7::DeleteDirectory(const TCHAR* sPath)
 	WCHAR szDir[MAX_PATH + 1];  // +1 for the double null terminate
 	SHFILEOPSTRUCTW fos = { 0 };
 
-	StringCchCopy(szDir, MAX_PATH, sPath);
+	StringCchCopyW(szDir, MAX_PATH, sPath);
 	int len = lstrlenW(szDir);
 	szDir[len + 1] = 0; // double null terminate for SHFileOperation
 
@@ -63,7 +63,7 @@ LONG gr7::DeleteDirectory(const TCHAR* sPath)
 	fos.wFunc = FO_DELETE;
 	fos.pFrom = szDir;
 	fos.fFlags = FOF_NO_UI;
-	return SHFileOperation(&fos);
+	return SHFileOperationW(&fos);
 }
 
 // Backup Implementation incase gr7::DeleteDirectory does not work.

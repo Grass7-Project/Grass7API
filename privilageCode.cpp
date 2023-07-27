@@ -16,7 +16,7 @@ HRESULT gr7::ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fEnable, HANDLE pro
 		return ERROR_FUNCTION_FAILED;
 	}
 
-	if (!LookupPrivilegeValue(NULL,
+	if (!LookupPrivilegeValueW(NULL,
 		szPrivilege,
 		&luid))
 	{
