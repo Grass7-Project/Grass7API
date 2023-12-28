@@ -53,5 +53,8 @@
     <ClCompile Include="CheckCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RichEditControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

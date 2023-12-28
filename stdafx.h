@@ -9,6 +9,7 @@
 
 // Windows Header Files:
 #include <windows.h>
+#include <Richedit.h>
 
 
 #include <stdint.h>
