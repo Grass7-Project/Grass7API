@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
@@ -133,7 +133,7 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
@@ -157,12 +157,12 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
 xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p forbidden to see here in github "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p nothereongithub "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,12 +183,12 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
 xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p forbidden to see here in github "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p nothereongithub "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -218,6 +218,7 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
     </ClCompile>
     <ClCompile Include="FileManagement.cpp" />
     <ClCompile Include="Grass7 API.cpp" />
+    <ClCompile Include="PaintCode.cpp" />
     <ClCompile Include="privilageCode.cpp" />
     <ClCompile Include="RichEditControl.cpp" />
     <ClCompile Include="stdafx.cpp">

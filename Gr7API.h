@@ -17,4 +17,6 @@ namespace gr7 {
 	extern "C" __declspec(dllexport) HWND CreateRichEdit(HWND hwndOwner, int x, int y, int width, int height, HINSTANCE hinst);
 	extern "C" __declspec(dllexport) DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb);
 	extern "C" __declspec(dllexport) BOOL FillRichEditFromFile(HWND hwnd, LPCTSTR pszFile, WPARAM Type);
+	extern "C" __declspec(dllexport) void PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, BLENDFUNCTION bf);
+	extern "C" __declspec(dllexport) void PaintText(HDC &hdc, int xPos, int yPos, wchar_t *font, COLORREF color, wchar_t *text, int nSize, int SizeMode);
 }
