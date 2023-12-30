@@ -18,7 +18,7 @@ void gr7::PaintText(HDC &hdc, int xPos, int yPos, wchar_t *font, COLORREF color,
 	SetBkMode(hdc, TRANSPARENT);
 	SetTextColor(hdc, color);
 	HFONT hFont, hTmp;
-	int nHeight;
+	int nHeight = 0;
 
 	if (SizeMode == 1) {
 		nHeight = -MulDiv(nSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
