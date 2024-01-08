@@ -72,32 +72,36 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>gr7api</TargetName>
-    <OutDir>$(SolutionDir)gr7api\$(Platform)\$(Configuration)\</OutDir>
-    <ExtensionsToDeleteOnClean>$(SolutionDir)$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <OutDir>$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\</OutDir>
+    <ExtensionsToDeleteOnClean>$(SolutionDir)Build\$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>gr7api</TargetName>
-    <OutDir>$(SolutionDir)gr7api\$(Platform)\$(Configuration)\</OutDir>
-    <ExtensionsToDeleteOnClean>$(SolutionDir)$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <OutDir>$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\</OutDir>
+    <ExtensionsToDeleteOnClean>$(SolutionDir)Build\$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>gr7api</TargetName>
-    <OutDir>$(SolutionDir)gr7api\$(Platform)\$(Configuration)\</OutDir>
-    <ExtensionsToDeleteOnClean>$(SolutionDir)$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <OutDir>$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\</OutDir>
+    <ExtensionsToDeleteOnClean>$(SolutionDir)Build\$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>gr7api</TargetName>
-    <OutDir>$(SolutionDir)gr7api\$(Platform)\$(Configuration)\</OutDir>
-    <ExtensionsToDeleteOnClean>$(SolutionDir)$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <OutDir>$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\</OutDir>
+    <ExtensionsToDeleteOnClean>$(SolutionDir)Build\$(Platform)\$(Configuration)\gr7api.dll;*.cdf;*.cache;*.obj;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,8 +119,8 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
-xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y</Command>
+      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,8 +140,8 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
-xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y</Command>
+      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -160,9 +164,9 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
-xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p nothereongithub "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
+      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "$(SolutionDir)Certificates\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p redacted "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)"
+xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -186,9 +190,9 @@ xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(Solution
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;wintrust.lib;comctl32.lib;Msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)gr7api\include" /Y
-xcopy "$(SolutionDir)gr7api\$(Platform)\$(Configuration)\gr7api.dll" "$(SolutionDir)$(Platform)\$(Configuration)\" /Y
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "C:\Users\Genki\CertStuff\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p nothereongithub "$(SolutionDir)$(Platform)\$(Configuration)\$(targetfilename)"</Command>
+      <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "$(SolutionDir)Certificates\gr7SPC.pfx" /t http://timestamp.comodoca.com/authenticode /p redacted "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)"
+xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

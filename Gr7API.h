@@ -10,7 +10,7 @@ namespace gr7 {
 	extern "C" __declspec(dllexport) BOOL DeleteDirectory2(const TCHAR* sPath);
 	extern "C" __declspec(dllexport) HRESULT ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fEnable, HANDLE process);
 	extern "C" __declspec(dllexport) wchar_t *LoadStringToW(HINSTANCE hInstance, UINT uID);
-	extern "C" __declspec(dllexport) wchar_t *LoadOSBrandingString();
+	extern "C" __declspec(dllexport) void LoadOSBrandingString(PWSTR &osbranding);
 	extern "C" __declspec(dllexport) BOOL isGrass7();
 	extern "C" __declspec(dllexport) BOOL isProcessElevated(HANDLE process);
 	extern "C" __declspec(dllexport) BOOL VerifyEmbeddedSignature(LPCWSTR pwszSourceFile);

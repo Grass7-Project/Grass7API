@@ -14,10 +14,9 @@ wchar_t * gr7::LoadStringToW(HINSTANCE hInstance, UINT uID)
 	return wc;
 }
 
-wchar_t * gr7::LoadOSBrandingString()
+// Function to load the branding of the OS from basebrd
+void gr7::LoadOSBrandingString(PWSTR &osbranding)
 {
-	// Function to load the branding of the OS from basebrd
-	PWSTR osbranding = L"";
 	HMODULE hMod = LoadLibraryExW(L"winbrand.dll", NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hMod)
 	{
@@ -31,5 +30,4 @@ wchar_t * gr7::LoadOSBrandingString()
 		}
 		FreeLibrary(hMod);
 	}
-	return osbranding;
 }
