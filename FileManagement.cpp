@@ -40,6 +40,18 @@ const char * gr7::GetSystemDriveLetter()
 	return driveletter;
 }
 
+int gr7::fileExists(TCHAR * file)
+{
+	WIN32_FIND_DATA FindFileData;
+	HANDLE handle = FindFirstFile(file, &FindFileData);
+	int found = handle != INVALID_HANDLE_VALUE;
+	if (found)
+	{
+		FindClose(handle);
+	}
+	return found;
+}
+
 int gr7::dirExists(const char *pathname)
 {
 	if (stat(pathname, &info) != 0)

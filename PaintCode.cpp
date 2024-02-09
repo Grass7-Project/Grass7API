@@ -13,9 +13,9 @@ void gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, 
 	DeleteDC(hdcMem);
 }
 
-void gr7::PaintText(HDC &hdc, int xPos, int yPos, wchar_t *font, COLORREF color, wchar_t *text, int nSize, int SizeMode)
+void gr7::PaintText(HDC &hdc, int xPos, int yPos, wchar_t *font, COLORREF color, wchar_t *text, int nSize, int SizeMode, int BkMode)
 {
-	SetBkMode(hdc, TRANSPARENT);
+	SetBkMode(hdc, BkMode);
 	SetTextColor(hdc, color);
 	HFONT hFont, hTmp;
 	int nHeight = 0;
