@@ -6,40 +6,27 @@
 #include <shellapi.h>
 #include <strsafe.h>
 
-struct stat info;
-
-const char * gr7::GetSystemDriveLetter()
+// Function to get the OS drive
+// Better implementation for global use, since this is in the OS and not winRE as before.
+int gr7::GetSystemDriveLetterW(wchar_t *driveletter)
 {
-	// Better implementation for global use, since this is in the OS and not winRE as before.
-	const char *driveletter = "";
-	char bg1[256] = { 0 };
-	char bg2[256] = { 0 };
+
 	TCHAR windir[MAX_PATH];
-	CHAR path[MAX_PATH];
 	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
+		return 1;
 	}
-	wcstombs_s(NULL, path, windir, wcslen(windir) + 1);
-	std::string path1 = path;
-	std::string letter1 = path1.substr(0, path1.find(":"));
-	const char *letter(letter1.c_str());
-	strncpy_s(bg1, letter, sizeof(bg1));
-	strncat_s(bg1, ":\\", sizeof(bg1));
-	strncpy_s(bg2, bg1, sizeof(bg2));
-	strncat_s(bg2, "Windows\\System32\\identifier", sizeof(bg2));
-	std::fstream fileStream;
-	fileStream.open(bg2);
-	if (fileStream.fail()) {
-	}
-	else {
-		driveletter = bg1;
-	}
-	fileStream.close();
+	std::wstring windirWSTR = windir;
+	std::wstring driveletter1 = windirWSTR.substr(0, windirWSTR.find(L":"));
+	driveletter1.append(L":\\");
+	const wchar_t *drivelettertext = driveletter1.c_str();
 
-	return driveletter;
+	wcsncpy_s(driveletter, sizeof(driveletter), drivelettertext, sizeof(drivelettertext));
+	return 0;
 }
 
+// Function to check if file exists
 int gr7::fileExists(TCHAR * file)
 {
 	WIN32_FIND_DATA FindFileData;
@@ -52,8 +39,10 @@ int gr7::fileExists(TCHAR * file)
 	return found;
 }
 
+// Function to check if directory exists
 int gr7::dirExists(const char *pathname)
 {
+	struct stat info;
 	if (stat(pathname, &info) != 0)
 		return 0;
 	else if (info.st_mode & S_IFDIR)
@@ -62,6 +51,7 @@ int gr7::dirExists(const char *pathname)
 		return 0;
 }
 
+// Function to delete directory recursively
 LONG gr7::DeleteDirectory(const TCHAR* sPath)
 {
 	WCHAR szDir[MAX_PATH + 1];  // +1 for the double null terminate
@@ -80,7 +70,7 @@ LONG gr7::DeleteDirectory(const TCHAR* sPath)
 
 // Backup Implementation incase gr7::DeleteDirectory does not work.
 // Note: Appears to not work with large directories with alot of files.
-BOOL gr7::DeleteDirectory2(const TCHAR* sPath)
+BOOL gr7::DeleteDirectoryAlternative(const TCHAR* sPath)
 {
 	HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
 	if (FAILED(hr)) {

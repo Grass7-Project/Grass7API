@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Gr7Api.h"
 
+// Function to change privalage of the specified process in function call
 HRESULT gr7::ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fEnable, HANDLE process)
 {
-	// Function to change privalage of the specified process in function call
 	HRESULT hr = S_OK;
 	TOKEN_PRIVILEGES NewState;
 	LUID             luid;

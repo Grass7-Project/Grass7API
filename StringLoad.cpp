@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Gr7Api.h"
 
+// Function to load a resource std::string to a std::wstring
+// May be phased out later
 wchar_t * gr7::LoadStringToW(HINSTANCE hInstance, UINT uID)
 {
-	// Function to load a resource std::string to a std::wstring
 	char stringbuffer[256];
 	size_t convertedChars = 0;
 	LoadStringA(hInstance, uID, stringbuffer, 256);

@@ -4,9 +4,9 @@
 #include <wintrust.h>
 #include <Softpub.h>
 
+// Function to check if the running system is actually Grass7, for compatibility reasons.
 BOOL gr7::isGrass7()
 {
-	// Function to check if the running system is actually Grass7, for compatibility reasons.
 	TCHAR windir[MAX_PATH];
 	CHAR identfilepath[MAX_PATH];
 	std::string myText;
@@ -27,9 +27,9 @@ BOOL gr7::isGrass7()
 	return 1;
 }
 
+// Function to check if the specified process is runnning as Administrator
 BOOL gr7::isProcessElevated(HANDLE process)
 {
-	// Function to check if the specified process is runnning as Administrator
 	BOOL fIsElevated = FALSE;
 	HANDLE hToken = NULL;
 	TOKEN_ELEVATION elevation;
@@ -57,6 +57,7 @@ Cleanup:
 	return fIsElevated;
 }
 
+// Function to verify signature of file
 BOOL gr7::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 {
 	LONG lStatus;

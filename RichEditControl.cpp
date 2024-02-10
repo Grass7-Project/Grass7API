@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Gr7API.h"
 
+// Function to create a rich edit control
 HWND gr7::CreateRichEdit(HWND hwndOwner, int x, int y, int width, int height, HINSTANCE hinst)
 {
 	LoadLibrary(TEXT("Msftedit.dll"));
@@ -29,6 +30,8 @@ DWORD CALLBACK gr7::EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 	HANDLE hFile = (HANDLE)dwCookie;
 	return !ReadFile(hFile, lpBuff, cb, (DWORD *)pcb, NULL);
 }
+
+// Reads the file and puts the contents into the rich edit control
 BOOL gr7::FillRichEditFromFile(HWND hwnd, LPCTSTR pszFile, WPARAM Type)
 {
 	BOOL fSuccess = FALSE;
