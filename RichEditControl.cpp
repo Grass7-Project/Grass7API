@@ -11,7 +11,7 @@ HWND gr7::CreateRichEdit(HWND hwndOwner, int x, int y, int width, int height, HI
 	icex.dwICC = ICC_USEREX_CLASSES;
 	InitCommonControlsEx(&icex);
 
-	HWND hwndEdit = CreateWindowEx(WS_EX_CLIENTEDGE, MSFTEDIT_CLASS, TEXT(""),
+	HWND hwndEdit = CreateWindowExW(WS_EX_CLIENTEDGE, MSFTEDIT_CLASS, L"",
 		WS_CHILD | WS_VISIBLE | ES_MULTILINE | WS_HSCROLL | WS_VSCROLL,
 		x, y, width, height,
 		hwndOwner, NULL, hinst, NULL);

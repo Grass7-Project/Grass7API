@@ -15,13 +15,12 @@ namespace gr7 {
 	extern "C" __declspec(dllexport) wchar_t * convertchar(const char *stringchar);
 	extern "C" __declspec(dllexport) LPCWSTR convertchartoLPCWSTR(const char *stringchar);
 	__declspec(dllexport) std::string WStringToString(const std::wstring& wstr);
-	extern "C" __declspec(dllexport) int GetSystemDriveLetterW(wchar_t *driveletter);
-	extern "C" __declspec(dllexport) int fileExists(TCHAR * file);
-	extern "C" __declspec(dllexport) int dirExists(const char *pathname);
-	extern "C" __declspec(dllexport) LONG DeleteDirectory(const TCHAR* sPath);
-	extern "C" __declspec(dllexport) BOOL DeleteDirectoryAlternative(const TCHAR* sPath);
+	extern "C" __declspec(dllexport) int GetSystemDriveLetter(wchar_t *driveletter);
+	extern "C" __declspec(dllexport) int fileExistsA(LPCSTR file);
+	extern "C" __declspec(dllexport) int fileExistsW(LPCWSTR file);
+	extern "C" __declspec(dllexport) int dirExists(LPCWSTR pathname);
+	extern "C" __declspec(dllexport) LONG DeleteDirectory(LPCWSTR sPath);
 	extern "C" __declspec(dllexport) HRESULT ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fEnable, HANDLE process);
-	extern "C" __declspec(dllexport) wchar_t *LoadStringToW(HINSTANCE hInstance, UINT uID);
 	extern "C" __declspec(dllexport) void LoadOSBrandingString(PWSTR &osbranding);
 	extern "C" __declspec(dllexport) BOOL isGrass7();
 	extern "C" __declspec(dllexport) BOOL isProcessElevated(HANDLE process);

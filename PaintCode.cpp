@@ -15,7 +15,7 @@ void gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, 
 
 BOOL gr7::PaintText(HDC &hdc, PaintTextOptions PaintTextOpt)
 {
-	// Make some variables set to a default value if they are not defined
+	// Make some variables set to a default value (1) if they are not defined
 	if (PaintTextOpt.SizeMode < 0.0) {
 		PaintTextOpt.SizeMode = 1;
 	}
