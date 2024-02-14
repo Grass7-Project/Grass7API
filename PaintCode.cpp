@@ -19,9 +19,11 @@ BOOL gr7::PaintText(HDC &hdc, PaintTextOptions PaintTextOpt)
 	if (PaintTextOpt.SizeMode < 0.0) {
 		PaintTextOpt.SizeMode = 1;
 	}
-
 	if (PaintTextOpt.BkMode < 0.0) {
 		PaintTextOpt.BkMode = TRANSPARENT;
+	}
+	if (PaintTextOpt.cWeight < 0.0) {
+		PaintTextOpt.cWeight = FW_LIGHT;
 	}
 
 	SetBkMode(hdc, PaintTextOpt.BkMode);
@@ -32,12 +34,11 @@ BOOL gr7::PaintText(HDC &hdc, PaintTextOptions PaintTextOpt)
 	if (PaintTextOpt.SizeMode == 1) {
 		nHeight = -MulDiv(PaintTextOpt.nSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
 	}
-
 	if (PaintTextOpt.SizeMode == 2) {
 		nHeight = PaintTextOpt.nSize;
 	}
 
-	hFont = CreateFontW(nHeight, 0, 0, 0, FW_LIGHT, 0, 0, 0, 0, 0, 0, 2, 0, PaintTextOpt.font);
+	hFont = CreateFontW(nHeight, 0, 0, 0, PaintTextOpt.cWeight, 0, 0, 0, 0, 0, 0, 2, 0, PaintTextOpt.font);
 	if (hFont == NULL) {
 		return 1;
 	}

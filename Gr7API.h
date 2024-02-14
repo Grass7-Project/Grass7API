@@ -9,6 +9,7 @@ typedef struct {
 	int nSize;
 	int SizeMode;
 	int BkMode;
+	int cWeight;
 } PaintTextOptions;
 
 namespace gr7 {
