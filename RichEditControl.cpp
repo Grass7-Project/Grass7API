@@ -4,7 +4,7 @@
 // Function to create a rich edit control
 HWND gr7::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, HINSTANCE hinst)
 {
-	LoadLibrary(TEXT("Msftedit.dll"));
+	LoadLibrary(L"Msftedit.dll");
 
 	INITCOMMONCONTROLSEX icex;
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -20,7 +20,7 @@ HWND gr7::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, H
 	cf.cbSize = sizeof(CHARFORMAT);
 	cf.dwEffects = 0;
 	cf.dwMask = CFM_FACE | CFE_BOLD;
-	SendMessage(hwndEdit, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
+	SendMessageW(hwndEdit, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
 
 	return hwndEdit;
 }
@@ -41,7 +41,7 @@ BOOL gr7::FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFile, WPARAM Type)
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		EDITSTREAM es = { (DWORD_PTR)hFile, 0, gr7::EditStreamCallback };
-		if (SendMessage(hwnd, EM_STREAMIN, Type, (LPARAM)&es) && es.dwError == 0)
+		if (SendMessageW(hwnd, EM_STREAMIN, Type, (LPARAM)&es) && es.dwError == 0)
 		{
 			fSuccess = TRUE;
 		}
