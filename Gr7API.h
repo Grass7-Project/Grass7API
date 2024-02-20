@@ -1,17 +1,5 @@
 #pragma once
 
-typedef struct {
-	int xPos;
-	int yPos;
-	LPCWSTR font;
-	COLORREF color;
-	LPCWSTR text;
-	int nSize;
-	int SizeMode;
-	int BkMode;
-	int cWeight;
-} PaintTextOptions;
-
 namespace gr7 {
 	extern "C" __declspec(dllexport) wchar_t * convertchar(const char *stringchar);
 	extern "C" __declspec(dllexport) LPCWSTR convertchartoLPCWSTR(const char *stringchar);
@@ -30,6 +18,6 @@ namespace gr7 {
 	extern "C" __declspec(dllexport) DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb);
 	extern "C" __declspec(dllexport) BOOL FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFile, WPARAM Type);
 	extern "C" __declspec(dllexport) void PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, BLENDFUNCTION bf);
-	extern "C" __declspec(dllexport) BOOL PaintText(HDC &hdc, PaintTextOptions PaintTextOpt);
+	extern "C" __declspec(dllexport) BOOL PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight);
 	extern "C" __declspec(dllexport) void GetDesktopResolution(int& horizontal, int& vertical);
 }

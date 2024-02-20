@@ -13,38 +13,25 @@ void gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, 
 	DeleteDC(hdcMem);
 }
 
-BOOL gr7::PaintText(HDC &hdc, PaintTextOptions PaintTextOpt)
+BOOL gr7::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight)
 {
-	// Make some variables set to a default value (1) if they are not defined
-	if (PaintTextOpt.SizeMode < 0.0) {
-		PaintTextOpt.SizeMode = 1;
-	}
-	if (PaintTextOpt.BkMode < 0.0) {
-		PaintTextOpt.BkMode = TRANSPARENT;
-	}
-	if (PaintTextOpt.cWeight < 0.0) {
-		PaintTextOpt.cWeight = FW_LIGHT;
-	}
-
-	SetBkMode(hdc, PaintTextOpt.BkMode);
-	SetTextColor(hdc, PaintTextOpt.color);
+	SetBkMode(hdc, BkMode);
+	SetTextColor(hdc, color);
 	HFONT hFont, hTmp;
 	int nHeight = 0;
 
-	if (PaintTextOpt.SizeMode == 1) {
-		nHeight = -MulDiv(PaintTextOpt.nSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
-	}
-	if (PaintTextOpt.SizeMode == 2) {
-		nHeight = PaintTextOpt.nSize;
+	if (SizeMode == 1) {
+		nHeight = -MulDiv(nSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
 	}
 
-	hFont = CreateFontW(nHeight, 0, 0, 0, PaintTextOpt.cWeight, 0, 0, 0, 0, 0, 0, 2, 0, PaintTextOpt.font);
-	if (hFont == NULL) {
-		return 1;
+	if (SizeMode == 2) {
+		nHeight = nSize;
 	}
+
+	hFont = CreateFontW(nHeight, 0, 0, 0, cWeight, 0, 0, 0, 0, 0, 0, 2, 0, font);
 	hTmp = (HFONT)SelectObject(hdc, hFont);
-	size_t size = wcslen(PaintTextOpt.text);
+	size_t size = wcslen(text);
 	int convertsize = static_cast<int>(size);
-	BOOL ret = TextOutW(hdc, PaintTextOpt.xPos, PaintTextOpt.yPos, PaintTextOpt.text, convertsize);
+	BOOL ret = TextOutW(hdc, xPos, yPos, text, convertsize);
 	return ret;
 }
