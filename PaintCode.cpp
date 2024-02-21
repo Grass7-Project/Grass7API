@@ -1,16 +1,17 @@
 #include "stdafx.h"
 #include "Gr7API.h"
 
-void gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP hBitmap, BLENDFUNCTION bf)
+BOOL gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf)
 {
 	BITMAP Bitmap;
 	HDC hdcMem = CreateCompatibleDC(hdc);
 	HGDIOBJ oldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
 	GetObjectW(hBitmap, sizeof(Bitmap), &Bitmap);
-	HDC hdcMem02 = CreateCompatibleDC(hdc);
-	AlphaBlend(hdc, xPos, yPos, Bitmap.bmWidth, Bitmap.bmHeight, hdcMem, 0, 0, Bitmap.bmWidth, Bitmap.bmHeight, bf);
+	BOOL ret = AlphaBlend(hdc, xPos, yPos, Bitmap.bmWidth, Bitmap.bmHeight, hdcMem, 0, 0, Bitmap.bmWidth, Bitmap.bmHeight, bf);
 	SelectObject(hdcMem, oldBitmap);
 	DeleteDC(hdcMem);
+	DeleteObject(oldBitmap);
+	return ret;
 }
 
 BOOL gr7::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight)
@@ -33,5 +34,7 @@ BOOL gr7::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, 
 	size_t size = wcslen(text);
 	int convertsize = static_cast<int>(size);
 	BOOL ret = TextOutW(hdc, xPos, yPos, text, convertsize);
+	DeleteObject(hFont);
+	DeleteObject(hTmp);
 	return ret;
 }
