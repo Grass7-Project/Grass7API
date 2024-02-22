@@ -5,7 +5,7 @@ BOOL gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap,
 {
 	BITMAP Bitmap;
 	HDC hdcMem = CreateCompatibleDC(hdc);
-	HGDIOBJ oldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
+	HBITMAP oldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
 	GetObjectW(hBitmap, sizeof(Bitmap), &Bitmap);
 	BOOL ret = AlphaBlend(hdc, xPos, yPos, Bitmap.bmWidth, Bitmap.bmHeight, hdcMem, 0, 0, Bitmap.bmWidth, Bitmap.bmHeight, bf);
 	SelectObject(hdcMem, oldBitmap);
