@@ -2,7 +2,7 @@
 #include "Gr7Api.h"
 
 // Function to load the branding of the OS from basebrd
-void gr7::LoadOSBrandingString(PWSTR &osbranding)
+void Grass7API::String::LoadOSBrandingString(PWSTR &osbranding)
 {
 	HMODULE hMod = LoadLibraryExW(L"winbrand.dll", NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hMod)

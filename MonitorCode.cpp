@@ -2,7 +2,7 @@
 #include "Gr7API.h"
 
 // Code to get the resolution of the screen
-void gr7::GetDesktopResolution(int& horizontal, int& vertical)
+void Grass7API::Monitor::GetDesktopResolution(int& horizontal, int& vertical)
 {
 	RECT desktop;
 

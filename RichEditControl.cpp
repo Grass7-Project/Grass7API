@@ -2,7 +2,7 @@
 #include "Gr7API.h"
 
 // Function to create a rich edit control
-HWND gr7::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, HINSTANCE hinst)
+HWND Grass7API::RichEditControl::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, HINSTANCE hinst)
 {
 	LoadLibrary(L"Msftedit.dll");
 
@@ -25,14 +25,14 @@ HWND gr7::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, H
 	return hwndEdit;
 }
 
-DWORD CALLBACK gr7::EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
+DWORD CALLBACK Grass7API::RichEditControl::EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
 	HANDLE hFile = (HANDLE)dwCookie;
 	return !ReadFile(hFile, lpBuff, cb, (DWORD *)pcb, NULL);
 }
 
 // Reads the file and puts the contents into the rich edit control
-BOOL gr7::FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFile, WPARAM Type)
+BOOL Grass7API::RichEditControl::FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFile, WPARAM Type)
 {
 	BOOL fSuccess = FALSE;
 	HANDLE hFile = CreateFile(pszFile, GENERIC_READ, FILE_SHARE_READ,
@@ -40,7 +40,7 @@ BOOL gr7::FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFile, WPARAM Type)
 		FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		EDITSTREAM es = { (DWORD_PTR)hFile, 0, gr7::EditStreamCallback };
+		EDITSTREAM es = { (DWORD_PTR)hFile, 0, Grass7API::RichEditControl::EditStreamCallback };
 		if (SendMessageW(hwnd, EM_STREAMIN, Type, (LPARAM)&es) && es.dwError == 0)
 		{
 			fSuccess = TRUE;

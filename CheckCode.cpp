@@ -5,7 +5,7 @@
 #include <Softpub.h>
 
 // Function to check if the running system is actually Grass7, for compatibility reasons.
-BOOL gr7::isGrass7()
+BOOL Grass7API::Check::isGrass7()
 {
 	TCHAR windir[MAX_PATH];
 	CHAR identfilepath[MAX_PATH];
@@ -28,7 +28,7 @@ BOOL gr7::isGrass7()
 }
 
 // Function to check if the specified process is runnning as Administrator
-BOOL gr7::isProcessElevated(HANDLE process)
+BOOL Grass7API::Check::isProcessElevated(HANDLE process)
 {
 	BOOL fIsElevated = FALSE;
 	HANDLE hToken = NULL;
@@ -58,7 +58,7 @@ Cleanup:
 }
 
 // Function to verify signature of file
-BOOL gr7::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
+BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 {
 	LONG lStatus;
 	DWORD dwLastError;

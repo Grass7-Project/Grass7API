@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Gr7API.h"
 
-BOOL gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf)
+BOOL Grass7API::Paint::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf)
 {
 	BITMAP Bitmap;
 	HDC hdcMem = CreateCompatibleDC(hdc);
@@ -14,7 +14,7 @@ BOOL gr7::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap,
 	return ret;
 }
 
-BOOL gr7::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight)
+BOOL Grass7API::Paint::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight)
 {
 	SetBkMode(hdc, BkMode);
 	SetTextColor(hdc, color);

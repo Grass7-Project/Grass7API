@@ -8,7 +8,7 @@
 #include <wchar.h>
 
 // Function to get the drive letter where the OS is installed to
-int gr7::GetSystemDriveLetter(wchar_t *driveletter)
+int Grass7API::FileManagement::GetSystemDriveLetter(wchar_t *driveletter)
 {
 	TCHAR windir[MAX_PATH];
 	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
@@ -26,7 +26,7 @@ int gr7::GetSystemDriveLetter(wchar_t *driveletter)
 }
 
 // Function to check if file exists
-int gr7::fileExistsA(LPCSTR file)
+int Grass7API::FileManagement::fileExistsA(LPCSTR file)
 {
 	WIN32_FIND_DATAA FindFileData;
 	HANDLE handle = FindFirstFileA(file, &FindFileData);
@@ -38,7 +38,7 @@ int gr7::fileExistsA(LPCSTR file)
 	return found;
 }
 
-int gr7::fileExistsW(LPCWSTR file)
+int Grass7API::FileManagement::fileExistsW(LPCWSTR file)
 {
 	WIN32_FIND_DATAW FindFileData;
 	HANDLE handle = FindFirstFileW(file, &FindFileData);
@@ -51,7 +51,7 @@ int gr7::fileExistsW(LPCWSTR file)
 }
 
 // Function to check if directory exists
-int gr7::dirExists(LPCWSTR pathname)
+int Grass7API::FileManagement::dirExists(LPCWSTR pathname)
 {
 	struct _stat64i32 info;
 	if (_wstat(pathname, &info) != 0)
@@ -63,7 +63,7 @@ int gr7::dirExists(LPCWSTR pathname)
 }
 
 // Function to delete directory recursively
-LONG gr7::DeleteDirectory(LPCWSTR sPath)
+LONG Grass7API::FileManagement::DeleteDirectory(LPCWSTR sPath)
 {
 	WCHAR szDir[MAX_PATH + 1];  // +1 for the double null terminate
 	SHFILEOPSTRUCTW fos = { 0 };

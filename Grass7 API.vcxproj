@@ -220,11 +220,12 @@ xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilenam
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="DWMCode.cpp" />
     <ClCompile Include="FileManagement.cpp" />
     <ClCompile Include="Grass7 API.cpp" />
     <ClCompile Include="MonitorCode.cpp" />
     <ClCompile Include="PaintCode.cpp" />
-    <ClCompile Include="privilageCode.cpp" />
+    <ClCompile Include="PrivilegeCode.cpp" />
     <ClCompile Include="RichEditControl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
