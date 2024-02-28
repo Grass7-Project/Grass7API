@@ -6,6 +6,8 @@
 #include <shellapi.h>
 #include <strsafe.h>
 #include <wchar.h>
+#include <Shlwapi.h>
+#include <iostream>
 
 // Function to get the drive letter where the OS is installed to
 int Grass7API::FileManagement::GetSystemDriveLetter(wchar_t *driveletter)
@@ -77,4 +79,58 @@ LONG Grass7API::FileManagement::DeleteDirectory(LPCWSTR sPath)
 	fos.pFrom = szDir;
 	fos.fFlags = FOF_NO_UI;
 	return SHFileOperationW(&fos);
+}
+
+BOOL Grass7API::FileManagement::FindFile(LPCWSTR path, LPCWSTR fileName, LPWSTR fullPath)
+{
+	WIN32_FIND_DATAW fd = {};
+	DWORD dwError;
+
+	WCHAR str[MAX_PATH] = {};
+	PathCombineW(str, path, L"*");
+
+	HANDLE hFind = FindFirstFileW(str, &fd);
+	if (hFind == INVALID_HANDLE_VALUE)
+	{
+		dwError = GetLastError();
+		if (dwError != ERROR_FILE_NOT_FOUND)
+			std::cout << "ERROR " << dwError;
+		return false;
+	}
+
+	do
+	{
+		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		{
+			if ((lstrcmpW(fd.cFileName, L".") != 0) &&
+				(lstrcmpW(fd.cFileName, L"..") != 0))
+			{
+				PathCombineW(str, path, fd.cFileName);
+				if (Grass7API::FileManagement::FindFile(str, fileName, fullPath))
+				{
+					CloseHandle(hFind);
+					return true;
+				}
+			}
+		}
+		else
+		{
+			if ((lstrcmpiW(fd.cFileName, fileName) == 0) ||
+				(lstrcmpiW(fd.cAlternateFileName, fileName) == 0))
+			{
+				if (fullPath)
+					PathCombineW(fullPath, path, fd.cFileName);
+
+				CloseHandle(hFind);
+				return true;
+			}
+		}
+	} while (FindNextFileW(hFind, &fd));
+
+	dwError = GetLastError();
+	if (dwError != ERROR_NO_MORE_FILES)
+		std::cout << "ERROR " << dwError;
+
+	CloseHandle(hFind);
+	return false;
 }

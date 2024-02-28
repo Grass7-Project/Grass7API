@@ -9,6 +9,7 @@ public:
 		static int fileExistsW(LPCWSTR file);
 		static int dirExists(LPCWSTR pathname);
 		static LONG DeleteDirectory(LPCWSTR sPath);
+		static BOOL FindFile(LPCWSTR path, LPCWSTR fileName, LPWSTR fullPath);
 	};
 
 	class __declspec(dllexport) Privilege {
