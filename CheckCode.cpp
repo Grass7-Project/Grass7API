@@ -7,21 +7,19 @@
 // Function to check if the running system is actually Grass7, for compatibility reasons.
 BOOL Grass7API::Check::isGrass7()
 {
-	TCHAR windir[MAX_PATH];
-	CHAR identfilepath[MAX_PATH];
-	std::string myText;
-
-	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
+	std::wstring identfilepath;
+	std::wstring myText;
+	std::wstring windir(MAX_PATH, 0);
+	UINT errWinDir = GetWindowsDirectoryW(&windir[0], MAX_PATH);
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		return 1;
 	}
-	const char *identfile = ("\\system32\\identifier");
-	wcstombs_s(NULL, identfilepath, windir, wcslen(windir) + 1);
-	strcat_s(identfilepath, identfile);
-	std::ifstream indentifier(identfilepath);
+	identfilepath.append(windir.c_str());
+	identfilepath.append(L"\\system32\\identifier");
+	std::wifstream indentifier(identfilepath);
 	getline(indentifier, myText);
-	if (myText.find("gr7") != std::string::npos) {
+	if (myText.find(L"gr7") != std::wstring::npos) {
 		return 0;
 	}
 	return 1;

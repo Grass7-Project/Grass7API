@@ -12,13 +12,13 @@
 // Function to get the drive letter where the OS is installed to
 int Grass7API::FileManagement::GetSystemDriveLetter(wchar_t *driveletter)
 {
-	TCHAR windir[MAX_PATH];
-	UINT errWinDir = GetWindowsDirectoryW(windir, MAX_PATH);
+	std::wstring windir(MAX_PATH, 0);
+	UINT errWinDir = GetWindowsDirectoryW(&windir[0], MAX_PATH);
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		return 1;
 	}
-	std::wstring windirWSTR = windir;
+	std::wstring windirWSTR = windir.c_str();
 	std::wstring driveletter1 = windirWSTR.substr(0, windirWSTR.find(L":"));
 	driveletter1.append(L":\\");
 	const wchar_t *drivelettertext = driveletter1.c_str();

@@ -35,9 +35,6 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="convertChar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StringLoad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

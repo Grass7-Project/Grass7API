@@ -48,13 +48,6 @@ public:
 		static void DwmIsCompositionEnabled(BOOL &dwmEnabled);
 	};
 
-	class __declspec(dllexport) Convert {
-	public:
-		static wchar_t * convertchar(const char *stringchar);
-		static LPCWSTR convertchartoLPCWSTR(const char *stringchar);
-		static std::string WStringToString(const std::wstring& wstr);
-	};
-
 	class __declspec(dllexport) String {
 	public:
 		static void LoadOSBrandingString(PWSTR &osbranding);
