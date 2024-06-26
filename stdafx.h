@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 
 // TODO: reference additional headers your program requires here

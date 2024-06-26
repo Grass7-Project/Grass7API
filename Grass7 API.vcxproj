@@ -124,6 +124,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "$(SolutionDir)Certificates\gr7SPC.pfx" /fd sha256 /tr http://timestamp.digicert.com /p redacted /td sha256 "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)"
 xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -144,6 +145,7 @@ xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilenam
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Gr7API.h" "$(SolutionDir)depends\gr7api\include" /Y
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /v /f "$(SolutionDir)Certificates\gr7SPC.pfx" /fd sha256 /tr http://timestamp.digicert.com /p redacted /td sha256 "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)"
 xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilename)" "$(SolutionDir)Build\$(Platform)\$(Configuration)\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -233,6 +235,7 @@ xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilenam
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StringLoad.cpp" />
+    <ClCompile Include="VersionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />

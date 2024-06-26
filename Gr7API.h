@@ -50,6 +50,14 @@ public:
 
 	class __declspec(dllexport) String {
 	public:
-		static void LoadOSBrandingString(PWSTR &osbranding);
+		static void LoadOSBrandingString(PWSTR &osbranding, wchar_t *SpecifierWstr);
+	};
+
+	class __declspec(dllexport) Version {
+	public:
+		static void GetBuildString(wchar_t *Data, DWORD BufferSize);
+		static void GetCurrentBuild(wchar_t *Data, DWORD BufferSize);
+		static void GetPatchLevel(wchar_t *Data, DWORD BufferSize);
+		static void GetUpdateLevel(wchar_t *Data, DWORD BufferSize);
 	};
 };
