@@ -21,6 +21,7 @@ public:
 	public:
 		static BOOL PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf);
 		static BOOL PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight);
+		static HBITMAP Grass7API::Paint::ReplaceColor(HBITMAP hBmp, COLORREF cOldColor, COLORREF cNewColor, HDC hBmpDC);
 	};
 
 	class __declspec(dllexport) Monitor {
@@ -48,9 +49,10 @@ public:
 		static void DwmIsCompositionEnabled(BOOL &dwmEnabled);
 	};
 
-	class __declspec(dllexport) String {
+	class __declspec(dllexport) Branding {
 	public:
 		static void LoadOSBrandingString(PWSTR &osbranding, wchar_t *SpecifierWstr);
+		static void LoadOSBrandingImage(HBITMAP &hBitmap);
 	};
 
 	class __declspec(dllexport) Version {
