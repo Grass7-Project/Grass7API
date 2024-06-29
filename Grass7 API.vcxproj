@@ -235,7 +235,7 @@ xcopy "$(SolutionDir)depends\gr7api\$(Platform)\$(Configuration)\$(targetfilenam
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="BrandingLoad.cpp" />
-    <ClCompile Include="VersionInfo.cpp" />
+    <ClCompile Include="SystemInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />

@@ -19,7 +19,7 @@ void Grass7API::Branding::LoadOSBrandingString(PWSTR &osbranding, wchar_t *Speci
 void Grass7API::Branding::LoadOSBrandingImage(HBITMAP &hBitmap)
 {
 	std::wstring windirW(MAX_PATH, 0);
-	UINT errWinDir = GetWindowsDirectoryW(&windirW[0], MAX_PATH);
+	UINT errWinDir = GetWindowsDirectoryW(&windirW[0], (int)windirW.size());
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		hBitmap = NULL;

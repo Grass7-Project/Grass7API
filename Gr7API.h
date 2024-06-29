@@ -55,11 +55,13 @@ public:
 		static void LoadOSBrandingImage(HBITMAP &hBitmap);
 	};
 
-	class __declspec(dllexport) Version {
+	class __declspec(dllexport) SystemInfo {
 	public:
 		static void GetBuildString(wchar_t *Data, DWORD BufferSize);
 		static void GetCurrentBuild(wchar_t *Data, DWORD BufferSize);
 		static void GetPatchLevel(wchar_t *Data, DWORD BufferSize);
 		static void GetUpdateLevel(wchar_t *Data, DWORD BufferSize);
+		static void GetRegisteredOwner(wchar_t *Data, DWORD BufferSize);
+		static void GetRegisteredOrganization(wchar_t *Data, DWORD BufferSize);
 	};
 };

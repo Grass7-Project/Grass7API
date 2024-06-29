@@ -10,7 +10,7 @@ BOOL Grass7API::Check::isGrass7()
 	std::wstring identfilepath;
 	std::wstring myText;
 	std::wstring windir(MAX_PATH, 0);
-	UINT errWinDir = GetWindowsDirectoryW(&windir[0], MAX_PATH);
+	UINT errWinDir = GetWindowsDirectoryW(&windir[0], (int)windir.size());
 	if (errWinDir == 0) {
 		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		return 1;

@@ -56,10 +56,10 @@
     <ClCompile Include="PrivilegeCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VersionInfo.cpp">
+    <ClCompile Include="BrandingLoad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BrandingLoad.cpp">
+    <ClCompile Include="SystemInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
