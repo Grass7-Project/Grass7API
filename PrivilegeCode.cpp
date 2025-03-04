@@ -7,7 +7,7 @@ HRESULT Grass7API::Privilege::ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fE
 	HRESULT hr = S_OK;
 	TOKEN_PRIVILEGES NewState;
 	LUID             luid;
-	HANDLE hToken = NULL;
+	HANDLE hToken = nullptr;
 
 	if (!OpenProcessToken(process,
 		TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
@@ -16,7 +16,7 @@ HRESULT Grass7API::Privilege::ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fE
 		return ERROR_FUNCTION_FAILED;
 	}
 
-	if (!LookupPrivilegeValueW(NULL,
+	if (!LookupPrivilegeValueW(nullptr,
 		szPrivilege,
 		&luid))
 	{
@@ -33,8 +33,8 @@ HRESULT Grass7API::Privilege::ModifyPrivilege(IN LPCTSTR szPrivilege, IN BOOL fE
 		FALSE,
 		&NewState,
 		0,
-		NULL,
-		NULL))
+		nullptr,
+		nullptr))
 	{
 		hr = ERROR_FUNCTION_FAILED;
 	}

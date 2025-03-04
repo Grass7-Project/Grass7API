@@ -4,7 +4,7 @@
 void Grass7API::DWM::DwmIsCompositionEnabled(BOOL &dwmEnabled)
 {
 	dwmEnabled = 0;
-	HMODULE hMod = LoadLibraryExW(L"dwmapi.dll", NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
+	HMODULE hMod = LoadLibraryExW(L"dwmapi.dll", nullptr, NULL);
 	if (hMod)
 	{
 		HRESULT(WINAPI* pfnDwmIsCompositionEnabled)(BOOL *pfEnabled);

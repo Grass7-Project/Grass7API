@@ -4,8 +4,6 @@
 // Function to create a rich edit control
 HWND Grass7API::RichEditControl::CreateRichEdit(HWND &hwndOwner, int x, int y, int width, int height, HINSTANCE hinst)
 {
-	LoadLibrary(L"Msftedit.dll");
-
 	INITCOMMONCONTROLSEX icex;
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
 	icex.dwICC = ICC_USEREX_CLASSES;
@@ -14,7 +12,7 @@ HWND Grass7API::RichEditControl::CreateRichEdit(HWND &hwndOwner, int x, int y, i
 	HWND hwndEdit = CreateWindowExW(WS_EX_CLIENTEDGE, MSFTEDIT_CLASS, L"",
 		WS_CHILD | WS_VISIBLE | ES_MULTILINE | WS_HSCROLL | WS_VSCROLL,
 		x, y, width, height,
-		hwndOwner, NULL, hinst, NULL);
+		hwndOwner, nullptr, hinst, nullptr);
 
 	CHARFORMAT cf;
 	cf.cbSize = sizeof(CHARFORMAT);
@@ -28,7 +26,7 @@ HWND Grass7API::RichEditControl::CreateRichEdit(HWND &hwndOwner, int x, int y, i
 DWORD CALLBACK Grass7API::RichEditControl::EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
 	HANDLE hFile = (HANDLE)dwCookie;
-	return !ReadFile(hFile, lpBuff, cb, (DWORD *)pcb, NULL);
+	return !ReadFile(hFile, lpBuff, cb, (DWORD *)pcb, nullptr);
 }
 
 // Reads the file and puts the contents into the rich edit control
@@ -37,7 +35,7 @@ BOOL Grass7API::RichEditControl::FillRichEditFromFile(HWND &hwnd, LPCTSTR pszFil
 	BOOL fSuccess = FALSE;
 	HANDLE hFile = CreateFile(pszFile, GENERIC_READ, FILE_SHARE_READ,
 		0, OPEN_EXISTING,
-		FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+		FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		EDITSTREAM es = { (DWORD_PTR)hFile, 0, Grass7API::RichEditControl::EditStreamCallback };

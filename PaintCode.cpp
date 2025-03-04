@@ -1,6 +1,22 @@
 #include "stdafx.h"
 #include "Gr7API.h"
 
+void Grass7API::Paint::CreateHFONT(HFONT &hFont, LPCWSTR font, int nSize, int SizeMode, int cWeight)
+{
+	int nHeight = 0;
+	if (SizeMode == 1) {
+		HDC hdcScreen = GetWindowDC(nullptr);
+		nHeight = -MulDiv(nSize, GetDeviceCaps(hdcScreen, LOGPIXELSY), 72);
+		ReleaseDC(nullptr, hdcScreen);
+	}
+
+	if (SizeMode == 2) {
+		nHeight = nSize;
+	}
+
+	hFont = CreateFontW(nHeight, 0, 0, 0, cWeight, 0, 0, 0, 0, 0, 0, 2, 0, font);
+}
+
 BOOL Grass7API::Paint::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf)
 {
 	BITMAP Bitmap;
@@ -14,26 +30,20 @@ BOOL Grass7API::Paint::PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBIT
 	return ret;
 }
 
-BOOL Grass7API::Paint::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight)
+BOOL Grass7API::Paint::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight, LPRECT hWndRect, UINT format)
 {
+	HFONT hFont, hTmp;
+	RECT rc = *hWndRect;
 	SetBkMode(hdc, BkMode);
 	SetTextColor(hdc, color);
-	HFONT hFont, hTmp;
-	int nHeight = 0;
+	Grass7API::Paint::CreateHFONT(hFont, font, nSize, SizeMode, cWeight);
 
-	if (SizeMode == 1) {
-		nHeight = -MulDiv(nSize, GetDeviceCaps(hdc, LOGPIXELSY), 72);
-	}
-
-	if (SizeMode == 2) {
-		nHeight = nSize;
-	}
-
-	hFont = CreateFontW(nHeight, 0, 0, 0, cWeight, 0, 0, 0, 0, 0, 0, 2, 0, font);
 	hTmp = (HFONT)SelectObject(hdc, hFont);
 	size_t size = wcslen(text);
 	int convertsize = static_cast<int>(size);
-	BOOL ret = TextOutW(hdc, xPos, yPos, text, convertsize);
+	rc.left = xPos;
+	rc.top = yPos;
+	BOOL ret = DrawTextW(hdc, text, convertsize, &rc, format);
 	DeleteObject(hFont);
 	DeleteObject(hTmp);
 	return ret;
@@ -42,22 +52,22 @@ BOOL Grass7API::Paint::PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COL
 #define COLORREF2RGB(Color) (Color & 0xff00) | ((Color >> 16) & 0xff) \
                                  | ((Color << 16) & 0xff0000)
 
-HBITMAP Grass7API::Paint::ReplaceColor(HBITMAP hBmp, COLORREF cOldColor, COLORREF cNewColor, HDC hBmpDC)
+HBITMAP Grass7API::Paint::ReplaceColor(HBITMAP &hBmp, COLORREF cOldColor, COLORREF cNewColor, HDC &hBmpDC)
 {
-	HBITMAP RetBmp = NULL;
+	HBITMAP RetBmp = nullptr;
 	if (hBmp) {
-		HDC BufferDC = CreateCompatibleDC(NULL);
+		HDC BufferDC = CreateCompatibleDC(nullptr);
 		if (BufferDC) {
-			HBITMAP hTmpBitmap = (HBITMAP)NULL;
+			HBITMAP hTmpBitmap = nullptr;
 			if (hBmpDC)
 				if (hBmp == (HBITMAP)GetCurrentObject(hBmpDC, OBJ_BITMAP)) {
-					hTmpBitmap = CreateBitmap(1, 1, 1, 1, NULL);
+					hTmpBitmap = CreateBitmap(1, 1, 1, 1, nullptr);
 					SelectObject(hBmpDC, hTmpBitmap);
 				}
 
 			HGDIOBJ PreviousBufferObject = SelectObject(BufferDC, hBmp);
 
-			HDC DirectDC = CreateCompatibleDC(NULL);
+			HDC DirectDC = CreateCompatibleDC(nullptr);
 			if (DirectDC) {
 				BITMAP bm;
 				GetObject(hBmp, sizeof(bm), &bm);
@@ -76,7 +86,7 @@ HBITMAP Grass7API::Paint::ReplaceColor(HBITMAP hBmp, COLORREF cOldColor, COLORRE
 					(BITMAPINFO *)&RGB32BitsBITMAPINFO,
 					DIB_RGB_COLORS,
 					(void **)&ptPixels,
-					NULL, 0);
+					nullptr, 0);
 				if (DirectBitmap) {
 					HGDIOBJ PreviousObject = SelectObject(DirectDC, DirectBitmap);
 					BitBlt(DirectDC, 0, 0,

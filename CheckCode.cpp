@@ -12,7 +12,7 @@ BOOL Grass7API::Check::isGrass7()
 	std::wstring windir(MAX_PATH, 0);
 	UINT errWinDir = GetWindowsDirectoryW(&windir[0], (int)windir.size());
 	if (errWinDir == 0) {
-		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
+		MessageBoxW(nullptr, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		return 1;
 	}
 	identfilepath.append(windir.c_str());
@@ -29,7 +29,7 @@ BOOL Grass7API::Check::isGrass7()
 BOOL Grass7API::Check::isProcessElevated(HANDLE process)
 {
 	BOOL fIsElevated = FALSE;
-	HANDLE hToken = NULL;
+	HANDLE hToken = nullptr;
 	TOKEN_ELEVATION elevation;
 	DWORD dwSize;
 
@@ -50,7 +50,7 @@ Cleanup:
 	if (hToken)
 	{
 		CloseHandle(hToken);
-		hToken = NULL;
+		hToken = nullptr;
 	}
 	return fIsElevated;
 }
@@ -65,8 +65,8 @@ BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 	memset(&FileData, 0, sizeof(FileData));
 	FileData.cbStruct = sizeof(WINTRUST_FILE_INFO);
 	FileData.pcwszFilePath = pwszSourceFile;
-	FileData.hFile = NULL;
-	FileData.pgKnownSubject = NULL;
+	FileData.hFile = nullptr;
+	FileData.pgKnownSubject = nullptr;
 
 	GUID WVTPolicyGUID = WINTRUST_ACTION_GENERIC_VERIFY_V2;
 	WINTRUST_DATA WinTrustData;
@@ -79,10 +79,10 @@ BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 	WinTrustData.cbStruct = sizeof(WinTrustData);
 
 	// Use default code signing EKU.
-	WinTrustData.pPolicyCallbackData = NULL;
+	WinTrustData.pPolicyCallbackData = nullptr;
 
 	// No data to pass to SIP.
-	WinTrustData.pSIPClientData = NULL;
+	WinTrustData.pSIPClientData = nullptr;
 
 	// Disable WVT UI.
 	WinTrustData.dwUIChoice = WTD_UI_NONE;
@@ -97,10 +97,10 @@ BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 	WinTrustData.dwStateAction = WTD_STATEACTION_VERIFY;
 
 	// Verification sets this value.
-	WinTrustData.hWVTStateData = NULL;
+	WinTrustData.hWVTStateData = nullptr;
 
 	// Not used.
-	WinTrustData.pwszURLReference = NULL;
+	WinTrustData.pwszURLReference = nullptr;
 
 	WinTrustData.dwUIContext = 0;
 
@@ -110,7 +110,7 @@ BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 	// WinVerifyTrust verifies signatures as specified by the GUID 
 	// and Wintrust_Data.
 	lStatus = WinVerifyTrust(
-		NULL,
+		nullptr,
 		&WVTPolicyGUID,
 		&WinTrustData);
 
@@ -187,7 +187,7 @@ BOOL Grass7API::Check::VerifyEmbeddedSignature(LPCWSTR pwszSourceFile)
 	WinTrustData.dwStateAction = WTD_STATEACTION_CLOSE;
 
 	lStatus = WinVerifyTrust(
-		NULL,
+		nullptr,
 		&WVTPolicyGUID,
 		&WinTrustData);
 

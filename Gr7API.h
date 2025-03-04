@@ -19,9 +19,10 @@ public:
 
 	class __declspec(dllexport) Paint {
 	public:
+		static void CreateHFONT(HFONT &hFont, LPCWSTR font, int nSize, int SizeMode, int cWeight);
 		static BOOL PaintTransparentBitmap(HDC &hdc, int xPos, int yPos, HBITMAP &hBitmap, BLENDFUNCTION bf);
-		static BOOL PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight);
-		static HBITMAP Grass7API::Paint::ReplaceColor(HBITMAP hBmp, COLORREF cOldColor, COLORREF cNewColor, HDC hBmpDC);
+		static BOOL PaintText(HDC &hdc, int xPos, int yPos, LPCWSTR font, COLORREF color, LPCWSTR text, int nSize, int SizeMode, int BkMode, int cWeight, LPRECT hWndRect, UINT format = DT_LEFT | DT_EXTERNALLEADING | DT_WORDBREAK);
+		static HBITMAP ReplaceColor(HBITMAP &hBmp, COLORREF cOldColor, COLORREF cNewColor, HDC &hBmpDC);
 	};
 
 	class __declspec(dllexport) Monitor {
@@ -51,7 +52,7 @@ public:
 
 	class __declspec(dllexport) Branding {
 	public:
-		static void LoadOSBrandingString(PWSTR &osbranding, wchar_t *SpecifierWstr);
+		static void LoadOSBrandingString(HMODULE &hMod, PWSTR &osbranding, wchar_t *SpecifierWstr);
 		static void LoadOSBrandingImage(HBITMAP &hBitmap);
 	};
 

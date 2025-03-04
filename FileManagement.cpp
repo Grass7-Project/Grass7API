@@ -15,7 +15,6 @@ int Grass7API::FileManagement::GetSystemDriveLetter(wchar_t *driveletter)
 	std::wstring windir(MAX_PATH, 0);
 	UINT errWinDir = GetWindowsDirectoryW(&windir[0], (int)windir.size());
 	if (errWinDir == 0) {
-		MessageBoxW(NULL, L"GetWindowsDirectoryW returned 0", L"Error", MB_OK | MB_ICONQUESTION);
 		return 1;
 	}
 	std::wstring windirWSTR = windir.c_str();
